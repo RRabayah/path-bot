@@ -63,11 +63,38 @@ void displayMap(vector<vector<block*>> map){
 	}
 }
 
+block* makeStart(vector<vector<block*>> map, int x, int y){
+    map[x][y]->isStart = 1;
+    map[x][y]->isWall = 0;
+
+    return map[x][y];
+}
+
+block* makeEnd(vector<vector<block*>> map, int x, int y){
+    map[x][y]->isEnd = 1;
+    map[x][y]->isWall = 0;
+
+    return map[x][y];
+}
+
+void clean(vector<vector<block*>> map){
+    for(int i=0;i<map.size(); i++){
+		for(unsigned int j=0;j<map[i].size();j++){
+            delete(map[i][j]);
+	    }
+    }
+}
+
+
+
+
+
 // Environment Logic
 //Step 1: populate 2-d vector with blocks - DONE
 //Step 2: create a display method - DONE
 //Step 3: test aforementioned display method - DONE
-//Step 4: make a start-maker and an end-maker
+//Step 4: make a start-maker and an end-maker - DONE
+//Step 4.5: IMPORTANT - make a clean method for all the blocks - DONE
 //Step 5: implement a randomized A* function for generating random pathways in the obstacle course
 //Step 6: implement feathering
 //Step 7: Maybe add controls for manual agent control?
@@ -75,8 +102,13 @@ void displayMap(vector<vector<block*>> map){
 
 int main(){
 
-    vector<vector<block*>> sample = mapMaker(5, 5);
+    vector<vector<block*>> sample = mapMaker(7, 23);
+
+    makeEnd(sample, 3, 11);
+    makeStart(sample, 1, 2);
+
     displayMap(sample);
+    clean(sample);
 
     return 0;
 }
